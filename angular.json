@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/zh-coriander",
       "sourceRoot": "projects/zh-coriander/src",
-      "prefix": "lib",
+      "prefix": "zh",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -42,6 +42,128 @@
           }
         }
       }
-    }},
+    },
+    "library-use": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/library-use",
+      "sourceRoot": "projects/library-use/src",
+      "prefix": "zh",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/library-use",
+            "index": "projects/library-use/src/index.html",
+            "main": "projects/library-use/src/main.ts",
+            "polyfills": "projects/library-use/src/polyfills.ts",
+            "tsConfig": "projects/library-use/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/library-use/src/favicon.ico",
+              "projects/library-use/src/assets"
+            ],
+            "styles": [
+              "projects/library-use/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/library-use/src/environments/environment.ts",
+                  "with": "projects/library-use/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "library-use:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "library-use:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "library-use:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/library-use/src/test.ts",
+            "polyfills": "projects/library-use/src/polyfills.ts",
+            "tsConfig": "projects/library-use/tsconfig.spec.json",
+            "karmaConfig": "projects/library-use/karma.conf.js",
+            "assets": [
+              "projects/library-use/src/favicon.ico",
+              "projects/library-use/src/assets"
+            ],
+            "styles": [
+              "projects/library-use/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/library-use/tsconfig.app.json",
+              "projects/library-use/tsconfig.spec.json",
+              "projects/library-use/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/library-use/e2e/protractor.conf.js",
+            "devServerTarget": "library-use:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "library-use:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
   "defaultProject": "zh-coriander"
 }
