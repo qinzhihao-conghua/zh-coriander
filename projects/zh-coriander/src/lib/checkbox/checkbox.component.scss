@@ -1,0 +1,61 @@
+.zh-checkbox-container {
+  display: inline-block;
+  font-size: inherit;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .label-for-checkbox {
+    margin-right: 12px;
+    cursor: pointer;
+    position: relative;
+
+    span {
+      font-size: inherit;
+    }
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      box-sizing: border-box;
+      border: 1px solid #177DDC;
+      vertical-align: middle;
+      background-clip: content-box;
+      padding: 2px;
+      margin-right: 8px;
+      box-sizing: border-box;
+    }
+  }
+
+  // 选中
+  .checkbox-check-true {
+    &::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: calc(50% - 7px);
+      width: 7px;
+      height: 14px;
+      border-width: 2px;
+      border-style: solid;
+      border-color: #177DDC;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      transform: rotate(45deg);
+      box-sizing: border-box;
+    }
+  }
+
+  //   禁用
+  .checkbox-disabled-true {
+    color: rgba(29, 27, 27, 0.5);
+    cursor: not-allowed;
+
+    &::before {
+      border-color: rgba(29, 27, 27, 0.5) !important;
+    }
+  }
+}

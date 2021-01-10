@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-zh-coriander',
+  selector: 'zh-coriander',
   template: `
     <p>
       zh-coriander works!

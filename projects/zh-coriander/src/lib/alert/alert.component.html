@@ -1,0 +1,29 @@
+<div class="theme-modal zh-modal">
+  <div class="container-lev3 alter-container">
+    <div class="container-title">
+      <div class="title-left">
+        <ng-container *ngIf="title; else elseTitle">
+          {{title}}
+        </ng-container>
+        <ng-template #elseTitle>
+          弹窗
+        </ng-template>
+      </div>
+      <div class="title-right" (click)="operationClick(false)">
+        <span class="icon-close"></span>
+      </div>
+    </div>
+    <div class="container-content">
+      <ng-container *ngIf="content; else elseContent">
+        <span>{{content}}</span>
+      </ng-container>
+      <ng-template #elseContent>
+        <span>内容</span>
+      </ng-template>
+    </div>
+    <div class="container-bottom">
+      <button class="theme-button" (click)="operationClick(true)">确定</button>
+      <button class="theme-button-failed" (click)="operationClick(false)" *ngIf="!onlySureBtn">取消</button>
+    </div>
+  </div>
+</div>

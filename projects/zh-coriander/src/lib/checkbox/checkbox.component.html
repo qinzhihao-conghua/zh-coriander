@@ -1,0 +1,10 @@
+<div class="zh-checkbox-container" *ngFor="let item of receiveData;let i=index;">
+  <label class="label-for-checkbox  checkbox-check-{{item.check}}  checkbox-disabled-{{zhDisabled}}">
+    <input (click)="checkboxSelected(item,i)"
+      type="checkbox" name="checkbox"
+      [checked]="item.check"
+      [disabled]="dsDisabled"
+      value="{{item.value}}">
+    <span>{{item.name}}</span>
+  </label>
+</div>

@@ -1,0 +1,49 @@
+.radio-container {
+  display: inline-block;
+  font-size: inherit;
+  position: relative;
+
+  input[type='radio'] {
+    display: none;
+  }
+
+  .label-for-radio {
+    margin-right: 12px;
+    cursor: pointer;
+
+    span {
+      font-size: inherit;
+    }
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      box-sizing: border-box;
+      border: 1px solid #177DDC;
+      border-radius: 50%;
+      vertical-align: middle;
+      background-clip: content-box;
+      padding: 2px;
+      margin-right: 8px;
+    }
+  }
+
+  //   选中
+  .radio-check-true {
+    &::before {
+      background-color: #177DDC;
+    }
+  }
+
+  //   禁用
+  .radio-disabled-true {
+    color: rgba(29, 27, 27, 0.5);
+    cursor: not-allowed;
+
+    &::before {
+      border-color: rgba(23, 126, 222, 0.5);
+    }
+  }
+}

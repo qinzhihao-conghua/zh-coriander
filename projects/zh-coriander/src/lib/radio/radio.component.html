@@ -1,0 +1,10 @@
+<div *ngFor="let item of receiveData;let i=index;" class="radio-container">
+  <label class="label-for-radio 
+                radio-check-{{item.check}} 
+                radio-disabled-{{zhDisabled}}">
+    <input (click)="radioCheck(item,i,$event)" type="radio" name="{{item.key}}" [checked]="item.check"
+      [disabled]="zhDisabled"
+      value="{{item.value}}">
+    <span>{{item.name}}</span>
+  </label>
+</div>
