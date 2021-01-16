@@ -1,13 +1,22 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'zh-checkbox',
   templateUrl: './checkbox.component.html',
-  styleUrls: ['./checkbox.component.scss']
+  styleUrls: ['./checkbox.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => ZhCheckboxComponent),
+      multi: true
+    }
+  ]
 })
-export class ZhCheckboxComponent implements OnInit {
+export class ZhCheckboxComponent implements OnInit, ControlValueAccessor {
 
   constructor() { }
+
   @Input()
   zhDisabled = false;
   @Input()
@@ -16,42 +25,53 @@ export class ZhCheckboxComponent implements OnInit {
   valueFiled: string;
 
   @Output()
-  getSelectValues = new EventEmitter<any>();
+  modelChange = new EventEmitter<any>();
   @Input()
   set data(value: Array<any>) {
-    if (value === undefined || value.length === 0) {
-      this.receiveData = [
-        { name: '足球', value: '1', check: true },
-        { name: '篮球', value: '2', check: true },
-        { name: '排球', value: '3', check: false }
-      ];
-    } else {
+    if (value !== undefined || value.length > 0) {
+      const temp = [];
       value.forEach((item, index) => {
         const obj = {};
         if (item instanceof Object) {
           obj['name'] = item[this.textFiled];
           obj['value'] = item[this.valueFiled];
-          obj['check'] = item.check || false;
+          // obj['check'] = item.check || false;
         } else {
           obj['name'] = item;
           obj['value'] = item;
-          obj['check'] = false;
+          // obj['check'] = false;
         }
-        this.receiveData.push(obj);
+        temp.push(obj);
       });
+      this.receiveData = [...temp];
+      console.log('接收的数据', this.receiveData);
     }
   }
 
   receiveData = [];
+  defaultValue: Array<string>;
+  onChange = (newVal: any) => { };
 
   ngOnInit(): void {
-    if (this.receiveData.length <= 0) {
-      this.receiveData = [
-        { name: '足球', value: '1', check: true },
-        { name: '篮球', value: '2', check: true },
-        { name: '排球', value: '3', check: false }
-      ];
+  }
+  writeValue(obj: Array<any>): void {
+    if (obj) {
+      this.defaultValue = [...obj];
+      this.receiveData.forEach(item => {
+        if (this.defaultValue.includes(item.value)) {
+          item.check = true;
+        }
+      });
     }
+  }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    // throw new Error('Method not implemented.');
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    // throw new Error('Method not implemented.');
   }
   checkboxSelected(dataItem: any, index: number): void {
     if (this.zhDisabled) {
@@ -71,7 +91,8 @@ export class ZhCheckboxComponent implements OnInit {
       selectedValues: values
     };
     // console.log('选择情况', obj);
-    this.getSelectValues.emit(obj);
+    this.onChange(values);
+    this.modelChange.emit(obj);
   }
 
 }

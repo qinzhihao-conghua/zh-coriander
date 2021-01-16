@@ -1,4 +1,6 @@
 <div>
-  <zh-checkbox></zh-checkbox>
+  <zh-checkbox [textFiled]="'name'" [valueFiled]="'value'" [(ngModel)]="default" [data]="checkboxData"
+    (modelChange)="modelChange($event)"></zh-checkbox>
   <zh-radio></zh-radio>
 </div>
+<p>checkbox选择：{{default | json}}</p>
