@@ -1,6 +1,9 @@
 <div>
-  <zh-checkbox [textFiled]="'name'" [valueFiled]="'value'" [(ngModel)]="default" [data]="checkboxData"
+  <zh-checkbox [textFiled]="'name'" [valueFiled]="'value'" [(ngModel)]="checkboxDefault" [data]="checkboxData"
     (modelChange)="modelChange($event)"></zh-checkbox>
-  <zh-radio></zh-radio>
+  <p>checkbox选择：{{checkboxDefault | json}}</p>
+  <zh-radio [textFiled]="'name'" [valueFiled]="'value'" [(ngModel)]="radioDefault" [data]="radioData"
+    (modelChange)="radioModelChange($event)" [canCancel]="false">
+  </zh-radio>
+  <p>checkbox选择：{{radioDefault }}</p>
 </div>
-<p>checkbox选择：{{default | json}}</p>

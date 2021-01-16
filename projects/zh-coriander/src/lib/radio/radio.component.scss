@@ -36,6 +36,11 @@
       background-color: #177DDC;
     }
   }
+  .radio-check-false {
+    &::before {
+      background-color: transparent;
+    }
+  }
 
   //   禁用
   .radio-disabled-true {
